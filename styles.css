@@ -1,0 +1,362 @@
+/* ==========================================================================
+   DJ Challe – styles.css
+   Alle farver og fonte styres herfra (variablerne i :root).
+   Vil du skifte lilla til en anden farve, så ret --accent – resten følger med.
+   ========================================================================== */
+
+:root {
+  --bg: #0B0814;          /* baggrund (næsten sort, lidt lilla) */
+  --surface: #15102A;     /* kort og bokse */
+  --border: #2A2144;      /* tynde streger */
+  --border-strong: #3B2F5E;
+  --text: #F3EEFF;        /* almindelig tekst */
+  --muted: #B9AFCF;       /* sekundær tekst */
+  --accent: #7C3AED;      /* knapper, fremhævninger */
+  --accent-text: #C4A7FF; /* lys lilla tekst på mørk baggrund */
+  --glow: rgba(124, 58, 237, 0.42);
+
+  --font-display: 'Syne', 'Arial Black', sans-serif;
+  --font-body: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --container: 1200px;
+}
+
+/* Grundlag ------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--text); }
+a:hover { color: var(--accent-text); }
+
+h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: -0.02em; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: 16px; top: -60px;
+  padding: 10px 16px; border-radius: 999px;
+  background: var(--accent); color: #fff; font-weight: 700; z-index: 100;
+}
+.skip:focus { top: 16px; }
+
+/* .page klipper den lilla glød, så siden aldrig kan scrolles sidelæns */
+.page { position: relative; overflow: hidden; min-height: 100vh; }
+
+.container {
+  position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.glow {
+  position: absolute; top: -260px; right: -120px;
+  width: 860px; height: 860px; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow), rgba(124, 58, 237, 0) 70%);
+  pointer-events: none;
+}
+
+/* Knapper -------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 28px;
+  border-radius: 999px; border: 1px solid transparent;
+  font-family: var(--font-body); font-weight: 700; font-size: 16px;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { color: #fff; }
+.btn-secondary { border-color: var(--border-strong); color: var(--text); background: transparent; }
+.btn-sm { min-height: 48px; padding: 0 24px; font-size: 15px; }
+
+/* Header --------------------------------------------------------------- */
+
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px 32px; padding-top: 22px; padding-bottom: 22px;
+}
+.logo {
+  font-family: var(--font-display); font-weight: 800; font-size: 22px;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; white-space: nowrap;
+}
+.nav { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px; font-weight: 600; }
+.nav a { color: var(--muted); text-decoration: none; padding: 6px 0; }
+.nav a:hover { color: var(--accent-text); }
+
+/* Sektioner ------------------------------------------------------------ */
+
+section { padding-bottom: 96px; }
+
+.eyebrow {
+  color: var(--accent-text); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.eyebrow-line { display: inline-flex; align-items: center; gap: 10px; }
+.eyebrow-line::before { content: ""; display: inline-block; width: 28px; height: 2px; background: var(--accent-text); }
+
+.section-head { display: flex; flex-direction: column; gap: 14px; max-width: 640px; margin-bottom: 32px; }
+.section-head h2 { font-weight: 800; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08; text-wrap: balance; }
+.section-head p { color: var(--muted); text-wrap: pretty; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+  gap: 48px; align-items: start;
+}
+.two-col .section-head { margin-bottom: 0; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+}
+
+/* Hero ----------------------------------------------------------------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr));
+  gap: 48px; align-items: center;
+  padding-top: 48px; padding-bottom: 80px;
+}
+.hero-text { display: flex; flex-direction: column; gap: 28px; max-width: 580px; }
+.hero h1 { font-weight: 800; font-size: clamp(40px, 5.2vw, 72px); line-height: 1.02; text-wrap: balance; }
+.hero .lead { font-size: 19px; color: var(--muted); max-width: 520px; text-wrap: pretty; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px; }
+.hero-note { font-size: 14px; color: var(--muted); }
+
+.hero-photo { position: relative; display: block; }
+.hero-photo::before {
+  content: ""; position: absolute; inset: 12% 6% 2% 6%;
+  border-radius: 32px; background: rgba(124, 58, 237, 0.45); filter: blur(48px);
+}
+.hero-photo img {
+  position: relative; width: 100%; max-width: 520px; margin: 0 auto; height: auto;
+  aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 28%;
+  border-radius: 24px; border: 1px solid var(--border);
+}
+
+/* "Spiller til"-stribe ------------------------------------------------- */
+
+.strip {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px;
+  padding: 26px 0; margin-bottom: 96px;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  font-family: var(--font-display); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Om mig --------------------------------------------------------------- */
+
+.about-text { display: flex; flex-direction: column; gap: 20px; }
+.about-text h2 { font-weight: 800; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08; text-wrap: balance; }
+.about-text p { color: var(--muted); text-wrap: pretty; }
+
+.facts { padding: 8px 28px; }
+.facts li {
+  display: flex; justify-content: space-between; gap: 24px;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+}
+.facts li:last-child { border-bottom: 0; }
+.facts dt, .facts .label { color: var(--muted); font-weight: 600; }
+.facts .value { font-weight: 700; text-align: right; }
+
+/* Musik ---------------------------------------------------------------- */
+
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.chip {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px;
+  border-radius: 999px; border: 1px solid var(--border-strong);
+  background: var(--surface); font-weight: 600; font-size: 15px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 20px;
+}
+
+.mix { display: flex; align-items: center; gap: 18px; padding: 20px; }
+.play {
+  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: #fff;
+}
+.play:hover { color: #fff; filter: brightness(1.08); }
+.mix-title { font-weight: 700; font-size: 17px; }
+.mix-meta { color: var(--muted); font-size: 14px; }
+.mix-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+/* Priser --------------------------------------------------------------- */
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 20px; align-items: stretch;
+}
+.package { display: flex; flex-direction: column; gap: 22px; padding: 32px; border-radius: 24px; }
+.package.featured { border-color: #6D4BC9; }
+.package h3 { font-weight: 700; font-size: 24px; }
+.package .desc { color: var(--muted); font-size: 15px; margin-top: 8px; }
+.price { font-family: var(--font-display); font-weight: 800; font-size: 40px; line-height: 1; }
+.price small { font-size: 18px; font-weight: 700; color: var(--muted); }
+.includes { display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
+.includes li { display: flex; gap: 10px; align-items: flex-start; }
+.includes svg { flex: 0 0 auto; margin-top: 3px; }
+.package .btn { margin-top: auto; }
+
+/* Events --------------------------------------------------------------- */
+
+.events { display: flex; flex-direction: column; gap: 12px; }
+.event { display: flex; align-items: center; gap: 20px; padding: 18px 22px; border-radius: 18px; }
+.date {
+  flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-width: 64px; height: 64px; padding: 0 10px; border-radius: 14px; background: var(--accent); color: #fff;
+  font-family: var(--font-display); font-weight: 800; line-height: 1; white-space: nowrap;
+}
+.date .day { font-size: 24px; }
+.date .month { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+.event-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.event-title { font-weight: 700; font-size: 17px; }
+.event-meta { color: var(--muted); font-size: 14px; }
+.available { margin-top: 8px; font-weight: 700; }
+.available span { color: var(--accent-text); }
+
+/* Anmeldelser ---------------------------------------------------------- */
+
+.review { display: flex; flex-direction: column; gap: 18px; margin: 0; }
+.review blockquote { margin: 0; font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+.review figcaption { margin-top: auto; color: var(--muted); font-size: 14px; font-weight: 600; }
+
+/* Galleri -------------------------------------------------------------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: 16px;
+}
+.gallery img {
+  width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 35%;
+  border-radius: 18px; border: 1px solid var(--border);
+}
+.photo-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 1 / 1; border-radius: 18px; padding: 16px;
+  border: 1px dashed var(--border-strong); background: var(--surface);
+  color: var(--muted); font-weight: 600; text-align: center;
+}
+
+/* FAQ ------------------------------------------------------------------ */
+
+.faq { border-top: 1px solid var(--border); }
+.faq details { border-bottom: 1px solid var(--border); }
+.faq summary {
+  cursor: pointer; list-style: none; padding: 22px 0;
+  font-size: 18px; font-weight: 700;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; font-family: var(--font-display); font-size: 22px; color: var(--accent-text);
+  transition: transform 150ms ease;
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--muted); font-size: 15px; padding: 0 0 22px; }
+
+/* Booking / kontakt ---------------------------------------------------- */
+
+.contact-info { display: flex; flex-direction: column; gap: 20px; }
+.contact-info h2 { font-weight: 800; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.08; text-wrap: balance; }
+.contact-info > p { color: var(--muted); text-wrap: pretty; }
+.contact-links { display: flex; flex-direction: column; gap: 10px; padding-top: 8px; font-weight: 600; }
+.contact-links a { text-decoration: none; }
+.socials { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 8px; }
+.socials a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+  border-radius: 999px; border: 1px solid var(--border-strong);
+  font-weight: 700; font-size: 14px; text-decoration: none;
+}
+
+.form-card { padding: 32px; border-radius: 24px; }
+.form { display: flex; flex-direction: column; gap: 18px; }
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 18px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 14px; font-weight: 700; }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 48px; padding: 12px 14px;
+  border-radius: var(--radius-sm); border: 1px solid var(--border-strong);
+  background: var(--bg); color: var(--text);
+  font: inherit; font-size: 16px; color-scheme: dark;
+}
+.field textarea { resize: vertical; }
+.field select {
+  appearance: none; -webkit-appearance: none; padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C4A7FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+.field input::placeholder, .field textarea::placeholder { color: #7F7499; }
+.form .btn { align-self: flex-start; }
+.form-note { font-size: 13px; color: var(--muted); }
+.hidden { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Tak-side ------------------------------------------------------------- */
+
+.thanks {
+  min-height: 60vh; display: flex; flex-direction: column; justify-content: center;
+  gap: 16px; align-items: flex-start; max-width: 640px; padding: 48px 0 96px;
+}
+.thanks h1 { font-weight: 800; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; }
+.thanks p { color: var(--muted); }
+
+/* Footer --------------------------------------------------------------- */
+
+.site-footer {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 16px 32px; padding: 32px 24px 40px;
+  border-top: 1px solid var(--border); color: var(--muted); font-size: 14px;
+}
+.site-footer .logo { font-size: 18px; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; font-weight: 600; }
+.site-footer nav a { color: var(--muted); text-decoration: none; }
+.site-footer nav a:hover { color: var(--accent-text); }
+
+/* Mobil ---------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .nav { display: none; }            /* på telefon: kun logo + "Book mig" */
+  .hero { padding-top: 24px; padding-bottom: 56px; }
+  section { padding-bottom: 72px; }
+  .strip { margin-bottom: 72px; gap: 10px 24px; }
+  .facts li { flex-direction: column; gap: 4px; }
+  .facts .value { text-align: left; }
+  .form-card, .package { padding: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .faq summary::after { transition: none; }
+}
