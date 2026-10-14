@@ -1,7 +1,7 @@
 /* ==========================================================================
    DJ Challe – styles.css
-   Alle farver og fonte styres herfra (variablerne i :root).
-   Vil du skifte lilla til en anden farve, så ret --accent – resten følger med.
+   Colors and fonts are controlled by the variables in :root.
+   Change --accent to adjust the purple accent color.
    ========================================================================== */
 
 :root {
@@ -347,7 +347,10 @@ section { padding-bottom: 96px; }
 /* Mobil ---------------------------------------------------------------- */
 
 @media (max-width: 720px) {
-  .nav { display: none; }            /* på telefon: kun logo + "Book mig" */
+  .nav { display: none; }            /* On mobile, keep the logo, language toggle, and booking button visible. */
+  .site-header { gap: 8px; }
+  .site-header .logo { font-size: 18px; }
+  .site-header .btn-sm { min-height: 42px; padding: 0 12px; font-size: 13px; }
   .hero { padding-top: 24px; padding-bottom: 56px; }
   section { padding-bottom: 72px; }
   .strip { margin-bottom: 72px; gap: 10px 24px; }
@@ -360,3 +363,5 @@ section { padding-bottom: 96px; }
   html { scroll-behavior: auto; }
   .btn, .faq summary::after { transition: none; }
 }
+
+.language-toggle { flex: 0 0 auto; }
